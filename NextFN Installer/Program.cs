@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
@@ -29,41 +29,54 @@ namespace NextFN_Installer
             Console.WriteLine("1. Full");
             Console.WriteLine("2. Exit");
             Console.Write("Selection: ");
-            var Number = Console.ReadLine();
+            var Num = Console.ReadLine();
 
-            if(Number == "1" || Number == "one")
+            switch(Num)
             {
-                Console.Write("Where would you like to install to: ");
-                var Dir = Console.ReadLine();
-                var DirFinish = Dir + @"\downloaded.zip";
-                using(var client = new WebClient())
-                {
-                    Console.WriteLine("[LOG] Downloading Zip");
-                    client.DownloadFile("https://nextfncdn.nextfndev.repl.co/ChromeSetup.zip", Dir + @"\downloaded.zip");
-                    Console.WriteLine("[LOG] Downloaded Zip");
-                    Console.WriteLine("[LOG] Extracting Zip");
-                    System.IO.Compression.ZipFile.ExtractToDirectory(DirFinish, Dir);
-                    Console.WriteLine("[LOG] Extracted Zip");
-                    Console.WriteLine("[LOG] Deleting old Zip");
-                    File.Delete(DirFinish);
-                    Console.WriteLine("[LOG] Installation Completed!");
-                    System.Threading.Thread.Sleep(1000);
+                case "1":
+                    Install();
+                break;
+                case "one":
+                    Install();
+                    break;
+                case "2":
+                    Environment.Exit(0);
+                    break;
+                case "two":
+                    Environment.Exit(0);
+                    break;
+                default:
                     Console.Clear();
-                    Console.Write("The installation has completed successfully, Please make sure to join our Discord at ");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write("https://dsc.gg/nextfn\n");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Press any key to close");
+                    Console.WriteLine("Incorrect input, press any key to close");
                     Console.ReadKey();
                     Environment.Exit(0);
-                }
-            } else if (Number == "2" || Number == "two") {
-                Environment.Exit(0);
-            } else {
-
+                    break;
             }
-
-            Console.ReadKey();
         }
+
+        public static void Install()
+        {
+            Console.Write("Where would you like to install to: ");
+            var Dir = Console.ReadLine();
+            var DirFinish = Dir + @"\downloaded.zip";
+            using (var client = new WebClient())
+            {
+                Console.Clear();
+                Console.WriteLine("Installation has Started");
+                client.DownloadFile("LINKHERE", Dir + @"\downloaded.zip");
+                System.IO.Compression.ZipFile.ExtractToDirectory(DirFinish, Dir);
+                File.Delete(DirFinish);
+                Console.WriteLine("Installation has completed!");
+                System.Threading.Thread.Sleep(1000);
+                Console.Clear();
+                Console.Write("The installation has completed successfully, Please make sure to join our Discord at ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("https://dsc.gg/nextfn\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Press any key to close");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+        } 
     }
 }
